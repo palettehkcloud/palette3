@@ -1,0 +1,148 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-palette3
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "palette3-ingress-ip"
+    networking.gke.io/v1beta1.FrontendConfig: "http-to-https"
+spec:
+  tls:
+    - secretName: ingress-orange-hkpalette-com-serect
+  rules:
+    - host: orange.hkpalette.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: palette3-ui
+                port:
+                  number: 3003
+          - path: /sockjs-node
+            pathType: Prefix
+            backend:
+              service:
+                name: palette3-ui
+                port:
+                  number: 3003
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: palette3-api
+                port:
+                  number: 8080
+          - path: /upload/images
+            pathType: Prefix
+            backend:
+              service:
+                name: palette3-api
+                port:
+                  number: 8080
+          - path: /auth-api
+            pathType: Prefix
+            backend:
+              service:
+                name: palette3-auth
+                port:
+                  number: 8080
+          - path: /chat-api
+            pathType: Prefix
+            backend:
+              service:
+                name: palette3-chat
+                port:
+                  number: 8080          
+          - path: /message
+            pathType: Prefix
+            backend:
+              service:
+                name: palette3-chat
+                port:
+                  number: 8080
+          - path: /message_bot
+            pathType: Prefix
+            backend:
+              service:
+                name: palette3-chat
+                port:
+                  number: 8080
+          - path: /secured/ws-stomp
+            pathType: Prefix
+            backend:
+              service:
+                name: palette3-chat
+                port:
+                  number: 8080 
+          - path: /reference
+            pathType: Prefix
+            backend:
+              service:
+                name: palette3-chat
+                port:
+                  number: 8080
+          - path: /expired_session
+            pathType: Prefix
+            backend:
+              service:
+                name: palette3-chat
+                port:
+                  number: 8080                      
+          - path: /phone-api
+            pathType: Prefix
+            backend:
+              service:
+                name: palette3-phone
+                port:
+                  number: 8080
+    - host: chat.hkpalette.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend: 
+              service:
+                name: ttalk-chat
+                port:
+                  number: 51000
+          - path: /apis
+            pathType: Prefix
+            backend: 
+              service:
+                name: ttalk-chat
+                port:
+                  number: 51000
+          - path: /user
+            pathType: Prefix
+            backend: 
+              service:
+                name: ttalk-chat
+                port:
+                  number: 51000
+    - host: biz.hkpalette.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ttalk-biz
+                port:
+                  number: 51001
+          - path: /apis
+            pathType: Prefix
+            backend:
+              service:
+                name: ttalk-biz
+                port:
+                  number: 51001                  
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: http-to-https
+spec:
+  redirectToHttps:
+    enabled: true
+    responseCodeName: PERMANENT_REDIRECT

@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ttalk-biz
+  labels:
+    app: ttalk-biz
+spec:
+  type: NodePort
+  ports:
+    - port: 51001
+      targetPort: 51001
+      protocol: TCP
+  selector:
+    app: ttalk-biz
+---
+apiVersion: apps/v1
+kind: StatefulSet 
+metadata:
+  name: ttalk-biz
+  labels:
+    app: ttalk-biz 
+spec:
+  replicas: 1
+  serviceName: ttalk-biz
+  selector:
+    matchLabels:
+      app: ttalk-biz
+  template:
+    metadata:
+      labels:
+        app: ttalk-biz
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+       - name: palette3-git-regcred
+      containers:
+        - name: ttalk-biz
+          image: "ghcr.io/kjd4717/ttalk_biz:2023.0801.001"
+          ports:
+            - containerPort: 51001
+              protocol: TCP  
+          volumeMounts:
+            - name: palette-repository
+              mountPath: /orange/app/palette3/repository
+            - name: tz-seoul
+              mountPath: /etc/localtime
+      volumes:
+        - name: tz-seoul
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Seoul
+        - name: palette-repository
+          nfs:
+            server: 10.39.97.2
+            path: /paletteVolume

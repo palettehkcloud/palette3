@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: palette-configmap-phone
+data:
+  SERVER_PORT: "8080"
+  SPRING_PROFILES_ACTIVE: production,production-chat,production-phone
+  SPRING_APPLICATION_NAME: palette3-api
+  PALETTE_ROOT-DIR: /orange/app/palette3
+  PALETTE_WEBAPPS-DIR: /orange/app/palette3/webapps
+  PALETTE_CHAT_CIPHER: "Y"
+  PALETTE_CHAT_KEY: MnR6bzI4bjdocGEw
+
+  JASYPT_KEY: paletteHello
+  CHAT_ENABLED: "false"
+  CHAT_ROUTER-ENABLED: "false"
