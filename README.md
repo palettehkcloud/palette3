@@ -291,7 +291,7 @@ kubectl apply -y https://raw.githubusercontent.com/palettehkcloud/palette3/main/
 ```
 
 #### - GCP VM 인스턴스 접근방법
-- Xshell (https://psawesome.tistory.com/62)
+- Xshell ( 참고 : https://psawesome.tistory.com/62)
 ```bat
 ssh-keygen -t rsa -b 4096 -f palettehkcloud -C palettehkcloud@gmail.com
 ```
@@ -299,7 +299,7 @@ ssh-keygen -t rsa -b 4096 -f palettehkcloud -C palettehkcloud@gmail.com
 구글클라우드 > ComputerEngine >설정>메타데이터>SSH키(탭) 에 등록한다.
 ( https://console.cloud.google.com/compute/metadata?project=palette-demo-391808&tab=sshkeys )
 
-- FileZilla (https://copycoding.tistory.com/408)
+- FileZilla ( 참고 : https://copycoding.tistory.com/408)
 ```bat
 C:\puttygen.exe
 ```
