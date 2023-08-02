@@ -5,7 +5,7 @@
   * github.com/palettehkcloud 에서 대한 90일 만료키 생성
     - 깃허브 > Settings > Developer Settings > Personal access tokens > Tokens(classic)
       ![img_14.png](assets/img_14.png)
-    - 2023.08.02일 90일만료로 생성된 키값 : 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
+    - 2023.08.02일 90일만료로 생성된 키값 : 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
 
 #### - PALETTE-UI
   * Dockerfile 설정
@@ -17,7 +17,7 @@
   * 사내도커 허브 또는 로컬에서 이미지 태깅 & github repository에 push
     - 172.16.0.100 ssh 접속 또는 로컬에서
     ```bash    
-    docker login ghcr.io -u palettehkcloud -p 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
+    docker login ghcr.io -u palettehkcloud -p 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
     docker tag palette3-ui:<<버전>> ghcr.io/palettehkcloud/palette3-ui:<<버전>>
     docker push ghcr.io/palettehkcloud/palette3-ui:<<버전>>
     ```
@@ -29,12 +29,12 @@
   * Dockerfile 설정
     ![img_8.png](assets/img_8.png)
   * 도커파일 실행 & 사내도커허브에 이미지생성
-  * 사내도커 허브에서 이미지 태깅 & github repository에 push
+  * 사내도커 허브 또는 로컬에서 이미지 태깅 & github repository에 push
     - 172.16.0.100 ssh 접속 또는 로컬에서    
     ```bash    
-    docker login ghcr.io -u palettehkcloud -p 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
+    docker login ghcr.io -u palettehkcloud -p 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
     docker tag palette3-api:2023.0718.001 ghcr.io/palettehkcloud/palette3-api:2023.0718.001
-    docker push ghcr.io/kjd4717/palette3-api:2023.0718.001
+    docker push ghcr.io/palettehkcloud/palette3-api:2023.0718.001
     ```
 
 #### - PALETTE-API
@@ -52,10 +52,10 @@ gcloud container clusters get-credentials palette-cluster-1 --zone asia-northeas
 #### - github연동용 secret 생성
 
 ```bash
-echo "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" > ~/GITHUB_TOKEN.txt 
+echo "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" > ~/GITHUB_TOKEN.txt 
 cat ~/GITHUB_TOKEN.txt | docker login https://ghcr.io -u palettehkcloud --password-stdin
 kubectl delete secret palette3-git-regcred    
-kubectl create secret docker-registry palette3-git-regcred --docker-server=ghcr.io --docker-username=palettehkcloud --docker-password=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 --docker-email=palettehkcloud@gmail.com  
+kubectl create secret docker-registry palette3-git-regcred --docker-server=ghcr.io --docker-username=palettehkcloud --docker-password=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 --docker-email=palettehkcloud@gmail.com  
 ```
 
 #### - FileStore생성
@@ -108,7 +108,12 @@ kubectl apply -y https://raw.githubusercontent.com/palettehkcloud/palette3/main/
 ```
 
 #### - pod 생성 (palette-ui, palette-api, palette-auth, palette-chat, palette-phone, ttalk-biz, ttalk-chat)
-  - 구글 CLOUD SHELL에서
+  - 생성전 github 로그인성공 여부 확인 필요함. 
+  - 로그인 실패시에는 "GITHUB 접근용 키 생성, github연동용 secret 생성" 진행 후 
+```bash
+docker login ghcr.io -u palettehkcloud -p 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
+```
+- 구글 CLOUD SHELL에서
 ```bash
 kubectl apply -y https://raw.githubusercontent.com/palettehkcloud/palette3/main/gke/yaml/palette-api.yaml
 kubectl apply -y https://raw.githubusercontent.com/palettehkcloud/palette3/main/gke/yaml/palette-auth.yaml
