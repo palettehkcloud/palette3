@@ -35,20 +35,14 @@ spec:
        - name: palette3-git-regcred
       containers:
         - name: palette3-ui
-          image: "ghcr.io/kjd4717/palette3-ui:2023.0719.002"
+          image: "ghcr.io/palettehkcloud/palette3-ui:2023.0719.002"
           ports:
             - containerPort: 3003
               protocol: TCP  
           volumeMounts:
-            - name: palette-repository
-              mountPath: /orange/app/palette3/webapps/public/upload
             - name: tz-seoul
               mountPath: /etc/localtime
       volumes:
         - name: tz-seoul
           hostPath:
             path: /usr/share/zoneinfo/Asia/Seoul
-        - name: palette-repository
-          nfs:
-            server: 10.39.97.2
-            path: /paletteVolume

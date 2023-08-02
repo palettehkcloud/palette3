@@ -39,7 +39,7 @@ spec:
        - name: palette3-git-regcred 
       containers:
         - name: palette3-chat
-          image: ghcr.io/kjd4717/palette3-api:2023.0721.005
+          image: ghcr.io/palettehkcloud/palette3-api:2023.0721.005
           envFrom:
           - configMapRef:
               name: palette-configmap-chat
